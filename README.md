@@ -101,7 +101,7 @@ You can find the responses used for the evalution of the models here: [Responses
 ## Models
 You can find the fine tuned models (lora adapters) here: 
 
-[LLama3](https://huggingface.co/MarcoMurgia97/lora_model-Llama3_10k_dataset)
+[LLama3](https://huggingface.co/MarcoMurgia97/Llama3-8B-FT)
 
-[Mistral](https://huggingface.co/MarcoMurgia97/unsloth_mistral_fine_tuned_1epoch_COT_v2_prompt_10KDatasetlora)
+[Mistral](https://huggingface.co/MarcoMurgia97/Mistral-7B-FT)
 
