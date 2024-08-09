@@ -12,7 +12,7 @@ login(token=os.environ['READ_HF_TOKEN'])
 
 device = "cuda"  # the device to load the model onto
 
-model_path = 'MarcoMurgia97/unsloth_mistral_fine_tuned_1epoch_COT_v2_prompt_10KDatasetlora'
+model_path = 'MarcoMurgia97/Mistral-7B-FT'
 parser = argparse.ArgumentParser(description="parameters for experiments")
 parser.add_argument('--k', type=int, required=True, help="K for precision")
 parser.add_argument('--sentence', type=str, required=True, help="sentence with or without context")
