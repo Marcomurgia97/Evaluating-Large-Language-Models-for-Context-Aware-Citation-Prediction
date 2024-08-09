@@ -13,7 +13,7 @@ login(token=os.environ['READ_HF_TOKEN'])
 
 device = "cuda"  # the device to load the model onto
 
-model_path = 'MarcoMurgia97/lora_model-Llama3_10k_dataset'
+model_path = 'MarcoMurgia97/Llama3-8B-FT'
 
 parser = argparse.ArgumentParser(description="parameters for experiments")
 parser.add_argument('--k', type=int, required=True, help="K for precision")
