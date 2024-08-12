@@ -83,7 +83,7 @@ To evalute the output of snd/trd method
 python compute_acc.py --k <precision> --sentence <context> --entity <entity> --path <whereOutputIsStored>
 ```
 ## Datasets
-You can find the S2ORCSci dataset here: [S2ORCSci](https://drive.google.com/file/d/1ZWv2K8fMZFWCTk8khVVkqCAJv6dbDkZS/view?usp=drive_link)
+You can find the CIPS dataset here: [CIPS](https://drive.google.com/file/d/1ZWv2K8fMZFWCTk8khVVkqCAJv6dbDkZS/view?usp=drive_link)
 
 You can find the training set used for the fine tuning of Llama3 here: [LLama3_training_set](https://drive.google.com/file/d/1nZMJySqvRM1R8VdXCQmstuGIl34999X7/view?usp=sharing)
 
