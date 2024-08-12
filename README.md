@@ -80,7 +80,7 @@ The entity parameter can be one of the following:
 
 To evalute the output of snd/trd method
 ```
-python compute_acc.py --k <precision> --sentence <context> --entity <entity> --path <whereOutputIsStored>
+python compute_acc.py --k <precision> --path <whereOutputIsStored>
 ```
 ## Datasets
 You can find the CIPS dataset here: [CIPS](https://drive.google.com/file/d/1ZWv2K8fMZFWCTk8khVVkqCAJv6dbDkZS/view?usp=drive_link)
