@@ -85,9 +85,9 @@ python compute_acc.py --k <precision> --sentence <context> --entity <entity> --p
 ## Datasets
 You can find the CIPS dataset here: [CIPS](https://drive.google.com/file/d/1ZWv2K8fMZFWCTk8khVVkqCAJv6dbDkZS/view?usp=drive_link)
 
-You can find the training set used for the fine tuning of Llama3 here: [LLama3_training_set](https://drive.google.com/file/d/1nZMJySqvRM1R8VdXCQmstuGIl34999X7/view?usp=sharing)
+You can find the training set used for the fine tuning of Llama3 here: [CIPS-10k-Llama3](https://drive.google.com/file/d/13UPexMjm9H_NcaSjhoB8d6uYoBGmsNak/view?usp=sharing)
 
-You can find the training set used for the fine tuning of Mistral here: [Mistral_training_set](https://drive.google.com/file/d/1AElPAhJYyvNQwvNGqZKi9Q5xRO_0DfV6/view?usp=sharing)
+You can find the training set used for the fine tuning of Mistral here: [CIPS-10k-mistral](https://drive.google.com/file/d/1CTA8VVyKEpi_u9Tb7TfP3ImldVj6NWyL/view?usp=sharing)
 
 You can find the test set here: [Test_set](https://drive.google.com/file/d/1UlifoUu1gnX9857UQCoS-dRGqcVd0ARh/view?usp=sharing)
 
