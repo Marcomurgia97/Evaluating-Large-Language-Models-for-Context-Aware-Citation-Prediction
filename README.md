@@ -105,3 +105,5 @@ You can find the fine tuned models (lora adapters) here:
 
 [Mistral](https://huggingface.co/MarcoMurgia97/Mistral-7B-FT)
 
+For any questions or tips contact me marco.murgia3@unica.it
+
