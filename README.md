@@ -1,109 +1,124 @@
 # Evaluating Large Language Models for Context-Aware Citation Prediction
 
-This repo contains code for automating the citation prediction problem using transformers and related experiments for performances evaluation 
+This repository provides the code and resources for evaluating Large Language Models (LLMs) on the task of context-aware citation prediction. It includes scripts for running experiments, evaluation, links to datasets, and fine-tuned models.
+
 ## Prerequisites
 
-The experiments were carried out on windows 11, using python 3.9.13
+*   **Operating System:** Experiments were conducted on Windows 11.
+*   **Python:** Version 3.9.13.
+*   **Hardware:** An NVIDIA GPU supporting CUDA is **mandatory** for running the experiments.
+*   **API Keys & Tokens:** Ensure the following environment variables are set:
+    *   `MISTRAL_API_KEY`: Your API key for accessing Mistral AI services.
+    *   `READ_HF_TOKEN`: Your Hugging Face Hub token with read access (required for accessing certain models/resources).
 
-To replicate the experiments it's compulsory to have an nvidia GPU supporting CUDA
+## Installation
 
-Ensure you have an api key for mistral ("MISTRAL_API_KEY" in the environment variables) and a read access token ("READ_HF_TOKEN" env. variable) for Huggingface
+Follow these steps to set up the required environment:
 
-## Installing
-Steps are the following:
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/Marcomurgia97/Evaluating-Large-Language-Models-for-Context-Aware-Citation-Prediction.git
+    cd Evaluating-Large-Language-Models-for-Context-Aware-Citation-Prediction
+    ```
 
-Clone the repo:
-```
-git clone https://github.com/Marcomurgia97/Evaluating-Large-Language-Models-for-Context-Aware-Citation-Prediction.git
-```
-Install transformers
-```
-pip install transformers==4.40.0
-```
-install pytorch with cuda
-```
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-```
-Install mistralai
-```
-pip install mistralai
-```
-Install huggingface-hub
-```
-pip install huggingface-hub
-```
-Install peft
-```
-pip install peft
-```
-Install bitsandbytes
-```
-pip install bitsandbytes
-```
-Install accelerate
-```
-pip install accelerate
-```
-Install safetensors
-```
-pip install safetensors
-```
-## Running the tests
-move to fst/snd/trd method and run (for example for the fst method, but is the same for all of the other methods)
-```
-python citation_suggestor_fstMethod.py --k <precision> --sentence <context> --entity <entity> --path_test_set <whereTestTestIsStored> --path_result <whereToSaveOutputs>
-```
-### Configuration Parameters
+2.  **Create and activate a virtual environment** (recommended):
+    ```bash
+    # Using venv
+    python -m venv venv
+    venv\Scripts\activate  # On Windows
+    # source venv/bin/activate # On Linux/macOS
 
-#### Precision
+    # Or using conda
+    # conda create -n llmcitepred python=3.9.13
+    # conda activate llmcitepred
+    ```
 
-The precision parameter can be set to one of the following values:
-- `1`
-- `3`
-- `5`
+3.  **Install PyTorch with CUDA support:**
+    (Ensure the CUDA version matches your system, `cu118` is used here)
+    ```bash
+    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+    ```
 
-#### Sentence
+4.  **Install necessary packages:**
+    ```bash
+    pip install transformers==4.40.0
+    pip install mistralai
+    pip install huggingface-hub
+    pip install peft
+    pip install bitsandbytes
+    pip install accelerate
+    pip install safetensors
+    # Add any other dependencies if required from a requirements.txt file (if one exists)
+    ```
 
-The sentence parameter can be one of the following:
-- `sentence_no_context`
-- `sentenceWithContext`
+## Running Experiments
 
-#### Entity
+Experiments are divided into three methods (`fst`, `snd`, `trd`).
 
-The entity parameter can be one of the following:
-- `titles_same_paper`
-- `titles_other_papers`
-- `abstract_same_paper`
-- `abstract_other_papers`
-- `abstract&title_same_paper`
-- `abstract&title_other_papers`
+1.  **Navigate to the desired method's directory:**
+    ```bash
+    cd fst  # or snd, or trd
+    ```
 
-To evalute the output of snd/trd method
-```
-python compute_acc.py --k <precision> --path <whereOutputIsStored>
-```
+2.  **Run the citation suggestion script:**
+    The script name corresponds to the method (e.g., `citation_suggestor_fstMethod.py`).
+    ```bash
+    python citation_suggestor_<methodName>.py --k <precision> --sentence <context_type> --entity <entity_type> --path_test_set <path_to_test_set_file> --path_result <output_directory_path>
+    ```
+    Replace `<methodName>` with `fstMethod`, `sndMethod`, or `trdMethod`.
+
+    **Command-line Arguments:**
+    *   `--k <precision>`: Specifies the number of top predictions to consider.
+        *   Possible values: `1`, `3`, `5`
+    *   `--sentence <context_type>`: Defines the type of sentence context provided to the model.
+        *   Possible values:
+            *   `sentence_no_context`: Uses the target sentence without surrounding context.
+            *   `sentenceWithContext`: Uses the target sentence along with its surrounding context.
+    *   `--entity <entity_type>`: Specifies the type of candidate entities (paper information) provided.
+        *   Possible values:
+            *   `titles_same_paper`: Candidate titles from the source paper.
+            *   `titles_other_papers`: Candidate titles from other potentially relevant papers.
+            *   `abstract_same_paper`: Candidate abstracts from the source paper.
+            *   `abstract_other_papers`: Candidate abstracts from other potentially relevant papers.
+            *   `abstract&title_same_paper`: Candidate abstracts and titles (concatenation) from the source paper.
+            *   `abstract&title_other_papers`: Candidate abstracts and titles (concatenation) from other potentially relevant papers.
+    *   `--path_test_set <path_to_test_set_file>`: Full path to the test set file (e.g., `../data/test_set.json`).
+    *   `--path_result <output_directory_path>`: Path to the directory where the output prediction files will be saved.
+
+## Evaluating Results
+
+To evaluate the accuracy of the predictions generated by the `snd` and `trd` methods:
+
+1.  Ensure you are in the root directory or have the correct path to the evaluation script. The script seems to be in the root based on the example.
+2.  Run the `compute_acc.py` script:
+    ```bash
+    python compute_acc.py --k <precision> --path <path_to_output_directory>
+    ```
+    *   `--k <precision>`: The precision level (`1`, `3`, or `5`) used during the prediction phase whose results you want to evaluate.
+    *   `--path <path_to_output_directory>`: The path to the directory containing the prediction output files generated by the `citation_suggestor_*.py` script.
+
 ## Datasets
-You can find the CIPS dataset here: [CIPS](https://drive.google.com/file/d/1ZWv2K8fMZFWCTk8khVVkqCAJv6dbDkZS/view?usp=drive_link)
 
-You can find the training set used for the fine tuning of Llama3 here: [CIPS-10k-Llama3](https://drive.google.com/file/d/13UPexMjm9H_NcaSjhoB8d6uYoBGmsNak/view?usp=sharing)
+*   **CIPS Dataset (Full):** [Download CIPS](https://drive.google.com/file/d/1ZWv2K8fMZFWCTk8khVVkqCAJv6dbDkZS/view?usp=drive_link)
+*   **Training Set for Llama3 Fine-tuning (CIPS-10k):** [Download CIPS-10k-Llama3](https://drive.google.com/file/d/13UPexMjm9H_NcaSjhoB8d6uYoBGmsNak/view?usp=sharing)
+*   **Training Set for Mistral Fine-tuning (CIPS-10k):** [Download CIPS-10k-mistral](https://drive.google.com/file/d/1CTA8VVyKEpi_u9Tb7TfP3ImldVj6NWyL/view?usp=sharing)
+*   **Test Set:** [Download Test_set](https://drive.google.com/file/d/1UlifoUu1gnX9857UQCoS-dRGqcVd0ARh/view?usp=sharing)
 
-You can find the training set used for the fine tuning of Mistral here: [CIPS-10k-mistral](https://drive.google.com/file/d/1CTA8VVyKEpi_u9Tb7TfP3ImldVj6NWyL/view?usp=sharing)
+## Fine-tuning
 
-You can find the test set here: [Test_set](https://drive.google.com/file/d/1UlifoUu1gnX9857UQCoS-dRGqcVd0ARh/view?usp=sharing)
+Details on the fine-tuning process using Unsloth can be found in the notebook: `unsloth_fineTuning.ipynb`.
 
+## Pre-generated Outputs
 
-## Fine tuning
-Check the notebook unsloth_fineTuning.ipynb
+You can find the model responses used for evaluation in the paper here:
+*   **Model Responses:** [Download Responses](https://drive.google.com/file/d/1HtbO1ucnvVVyeb4v1X0kqighMyPKd6Tn/view?usp=sharing)
 
-## Outputs
-You can find the responses used for the evalution of the models here: [Responses](https://drive.google.com/file/d/1HtbO1ucnvVVyeb4v1X0kqighMyPKd6Tn/view?usp=sharing)
+## Fine-tuned Models
 
-## Models
-You can find the fine tuned models (lora adapters) here: 
+The LoRA adapters for the fine-tuned models are available on Hugging Face Hub:
+*   **Llama3-8B-FT:** [MarcoMurgia97/Llama3-8B-FT](https://huggingface.co/MarcoMurgia97/Llama3-8B-FT)
+*   **Mistral-7B-FT:** [MarcoMurgia97/Mistral-7B-FT](https://huggingface.co/MarcoMurgia97/Mistral-7B-FT)
 
-[LLama3](https://huggingface.co/MarcoMurgia97/Llama3-8B-FT)
+## Contact
 
-[Mistral](https://huggingface.co/MarcoMurgia97/Mistral-7B-FT)
-
-For any questions or tips contact me marco.murgia3@unica.it
-
+For any questions, suggestions, or issues, please feel free to open an issue on this repository or contact Marco Murgia at `marco.murgia3@unica.it`.
