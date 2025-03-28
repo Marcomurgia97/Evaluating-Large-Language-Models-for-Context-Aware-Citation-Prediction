@@ -1,4 +1,5 @@
 # Evaluating Large Language Models for Context-Aware Citation Prediction
+[![Python Version](https://img.shields.io/badge/python-3.9.13-blue.svg)](https://python.org)
 
 This repository provides the code and resources for evaluating Large Language Models (LLMs) on the task of context-aware citation prediction. It includes scripts for running experiments, evaluation, links to datasets, and fine-tuned models.
 
